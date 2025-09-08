@@ -1,11 +1,11 @@
-# import sys
-# sys.path.append("src")
+import sys
+sys.path.append("src")
 
 import unittest
 
 from src.one_to_nine import *
 
-class TestSudoku(unittest.TestCase):
+class TestOneToNine(unittest.TestCase):
     def test_one_to_nine(self):
         test = [1,2,3,4,5,6,7,8,9]
         self.assertTrue(one_to_nine(test))

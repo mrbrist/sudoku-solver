@@ -1,3 +1,5 @@
+from one_to_nine import *
+
 class Sudoku():
     def __init__(self, data):
         self.arr = [[],[],[],
@@ -26,7 +28,29 @@ class Sudoku():
     
     def get_block(self, x, y):
         # Get a block from the puzzle
-        pass
+        res = []
+        for i in range(x*3,x*3+3):
+            for j in range(y*3,y*3+3):
+                res.append(self.arr[i][j])
+                
+        return res
+    
+    def is_solved(self):      
+        for i in range(0,9):
+            if not one_to_nine(self.get_row(i)):
+                return False
+            if not one_to_nine(self.get_column(i)):
+                return False
+            
+        blocks = [(0,0),(0,1),(0,2),
+                  (1,0),(1,1),(1,2),
+                  (2,0),(2,1),(2,2)]
+        
+        for i in blocks:
+            if not one_to_nine(self.get_block(i[0],i[1])):
+                return False
+        
+        return True
     
     def display(self):
         for i, row in enumerate(self.arr):
