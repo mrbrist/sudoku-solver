@@ -1,4 +1,5 @@
 from one_to_nine import *
+import time
 
 class Sudoku():
     def __init__(self, data):
@@ -12,6 +13,11 @@ class Sudoku():
         for i in range(len(split)):
             split2 = [int(ch) for ch in split[i]]
             self.arr[i].extend(split2)
+            
+    def __eq__(self, value):
+        if self.arr == value.arr:
+            return True
+        return False
         
     def get_num(self, x, y):
         return self.arr[x][y]
@@ -95,7 +101,7 @@ class Sudoku():
         
         return True
     
-    def solve_backtrack(self):
+    def solve_backtrack(self, visual, delay=0.5):
         next_pos = self.find_next_empty()
     
         if not next_pos:
@@ -105,10 +111,13 @@ class Sudoku():
             if self.is_valid_position(next_pos, i):
                 self.set_num(next_pos, i)
                 
-                if self.solve_backtrack():
+                if self.solve_backtrack(visual):
                     return True
                 
                 # Backtrack
                 self.set_num(next_pos, 0)
-                
+        if visual:
+            print("\033[H\033[J", end="")
+            self.display()
+            time.sleep(delay)
         return False
