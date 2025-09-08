@@ -1,4 +1,5 @@
 from one_to_nine import *
+from bcolors import *
 import time
 
 class Sudoku():
@@ -7,6 +8,7 @@ class Sudoku():
         self.arr = [[],[],[],
                     [],[],[],
                     [],[],[]]
+        self.steps = 0
         
         split = [data[i:i+9] for i in range(0, len(data), 9)]
         
@@ -18,6 +20,9 @@ class Sudoku():
         if self.arr == value.arr:
             return True
         return False
+    
+    def get_steps(self):
+        return self.steps
         
     def get_num(self, x, y):
         return self.arr[x][y]
@@ -72,7 +77,7 @@ class Sudoku():
             for j, val in enumerate(row):
                 if j % 3 == 0 and j != 0:
                     row_str += " |"
-                cell = str(val) if val != 0 else "."
+                cell = f"{bcolors.OKCYAN}{str(val)}{bcolors.ENDC}" if val != 0 else "."
                 row_str += " " + cell
             print(row_str)
         
@@ -101,7 +106,7 @@ class Sudoku():
         
         return True
     
-    def solve_backtrack(self, visual, delay=0.5):
+    def solve_backtrack(self, visual, delay=0.5, steps=0):
         next_pos = self.find_next_empty()
     
         if not next_pos:
@@ -111,7 +116,7 @@ class Sudoku():
             if self.is_valid_position(next_pos, i):
                 self.set_num(next_pos, i)
                 
-                if self.solve_backtrack(visual):
+                if self.solve_backtrack(visual, delay, steps):
                     return True
                 
                 # Backtrack
@@ -119,5 +124,9 @@ class Sudoku():
         if visual:
             print("\033[H\033[J", end="")
             self.display()
+            print("Solving...")
+            print(f"Steps: {bcolors.OKBLUE}{self.get_steps()+1}{bcolors.ENDC}")
             time.sleep(delay)
+            
+        self.steps+=1
         return False

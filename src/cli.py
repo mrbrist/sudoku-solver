@@ -1,5 +1,6 @@
 import cmd
 from sudoku import *
+from bcolors import *
 
 class CLI(cmd.Cmd):
     prompt = '>>> '
@@ -10,15 +11,15 @@ class CLI(cmd.Cmd):
         s = Sudoku(sudoku)
         print("Solving...")
         s.solve_backtrack(False)
-        print(f"Solved?: {s.is_solved()}")
+        print(f"Solved?: {bcolors.OKGREEN}{s.is_solved()}{bcolors.ENDC}")
+        print(f"Steps: {bcolors.OKBLUE}{s.get_steps()}{bcolors.ENDC}")
         s.display()
     
     def do_visual(self, sudoku):
         """Solves a sudoku in a oneline format with visual"""
         s = Sudoku(sudoku)
-        print("Solving...")
-        s.solve_backtrack(True)
-        print(f"Solved?: {s.is_solved()}")
+        s.solve_backtrack(True, 0.01)
+        print(f"Solved?: {bcolors.OKGREEN}{s.is_solved()}{bcolors.ENDC}")
         s.display()
         
     def do_display(self, sudoku):
