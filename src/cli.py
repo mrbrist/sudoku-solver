@@ -14,6 +14,16 @@ class CLI(cmd.Cmd):
         print(f"Solved?: {bcolors.OKGREEN}{s.is_solved()}{bcolors.ENDC}")
         print(f"Steps: {bcolors.OKBLUE}{s.get_steps()}{bcolors.ENDC}")
         s.display()
+        
+    def do_bulksolve(self, path):
+        """Solves all sudokus in a text file seperated by new line"""
+        # s = Sudoku(sudoku)
+        # print("Solving...")
+        # s.solve_backtrack(False)
+        # print(f"Solved?: {bcolors.OKGREEN}{s.is_solved()}{bcolors.ENDC}")
+        # print(f"Steps: {bcolors.OKBLUE}{s.get_steps()}{bcolors.ENDC}")
+        # s.display()
+        pass
     
     def do_visual(self, sudoku):
         """Solves a sudoku in a oneline format with visual"""
