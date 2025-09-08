@@ -5,6 +5,10 @@ solved = "1587234693679548212948163756192385474856971327321459869763812548415726
 
 s = Sudoku(test)
 
+print("Unsolved Sudoku:")
 s.display()
-
+print("Solving using backtrack...")
+s.solve_backtrack()
+print("Solved!")
+s.display()
 print(f"Solved?: {s.is_solved()}")

@@ -2,6 +2,7 @@ from one_to_nine import *
 
 class Sudoku():
     def __init__(self, data):
+        self.data = data
         self.arr = [[],[],[],
                     [],[],[],
                     [],[],[]]
@@ -14,6 +15,10 @@ class Sudoku():
         
     def get_num(self, x, y):
         return self.arr[x][y]
+    
+    def set_num(self, pos, num):
+        x,y = pos
+        self.arr[x][y] = num
     
     def get_row(self, x):
         # Get a row from the puzzle
@@ -64,3 +69,46 @@ class Sudoku():
                 cell = str(val) if val != 0 else "."
                 row_str += " " + cell
             print(row_str)
+        
+    def reset(self):
+        split = [self.data[i:i+9] for i in range(0, len(self.data), 9)]
+        
+        for i in range(len(split)):
+            split2 = [int(ch) for ch in split[i]]
+            self.arr[i].extend(split2)
+            
+    def find_next_empty(self):
+        for i in range(9):
+            for j in range(9):
+                if self.arr[i][j] == 0:
+                    return (i,j)
+        return None
+    
+    def is_valid_position(self, pos, num):
+        x, y = pos
+        if num in self.get_row(x):
+            return False
+        if num in self.get_column(y):
+            return False
+        if num in self.get_block(x//3,y//3):
+            return False
+        
+        return True
+    
+    def solve_backtrack(self):
+        next_pos = self.find_next_empty()
+    
+        if not next_pos:
+            return True
+        
+        for i in range(1, 10):
+            if self.is_valid_position(next_pos, i):
+                self.set_num(next_pos, i)
+                
+                if self.solve_backtrack():
+                    return True
+                
+                # Backtrack
+                self.set_num(next_pos, 0)
+                
+        return False
