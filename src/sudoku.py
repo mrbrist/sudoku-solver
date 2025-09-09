@@ -149,3 +149,7 @@ class Sudoku():
             if self.is_valid_position((x,y), num) and self.arr[x][y] == 0:
                 self.arr[x][y] = num
                 pre_solved-=1
+                
+    def estimate_difficulty(self):
+        difficulty = ["Easy", "Medium", "Hard", "Very Hard"]
+        return random.choice(difficulty)

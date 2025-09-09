@@ -43,10 +43,13 @@ class CLI(cmd.Cmd):
         s.generate(int(pre_solved) if pre_solved else random.randrange(6,30))
         s.display()
         print(f"One line format: {bcolors.OKCYAN}{s.get_one_line()}{bcolors.ENDC}")
+        print(f"Estimated difficulty is: {bcolors.WARNING}{s.estimate_difficulty()}{bcolors.ENDC}")
     
     def do_difficulty(self, sudoku):
         """Estimates the difficulty of a sudoku puzzle"""
-        pass
+        print("Estimating...")
+        s = Sudoku(sudoku)
+        print(f"Estimated difficulty is: {bcolors.WARNING}{s.estimate_difficulty()}{bcolors.ENDC}")
 
     def do_exit(self, line):
         """Exit the CLI."""
