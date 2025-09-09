@@ -58,8 +58,6 @@ class CLI(cmd.Cmd):
         s = Sudoku(sudoku)
         print(f"Showing all valid positions for: {num}")
         s.show_all_valid_pos_for_number(num)
-        
-        # validpos 302401809001000300000000000040708010780502036000090000200609003900000008800070005 6
 
     def do_exit(self, line):
         """Exit the CLI."""
