@@ -1,6 +1,7 @@
 from one_to_nine import *
 from bcolors import *
 import time
+import random
 
 class Sudoku():
     def __init__(self, data):
@@ -23,7 +24,16 @@ class Sudoku():
     
     def get_steps(self):
         return self.steps
+    
+    def get_one_line(self):
+        res = ""
         
+        for i in self.arr:
+            for j in i:
+                res += str(j)
+        
+        return res
+            
     def get_num(self, x, y):
         return self.arr[x][y]
     
@@ -130,3 +140,12 @@ class Sudoku():
             
         self.steps+=1
         return False
+    
+    def generate(self, pre_solved):
+        print(f"Generating sudoku with {pre_solved} pre-solved numbers")
+        while pre_solved != 0:
+            x, y = random.randrange(0,9), random.randrange(0,9)
+            num = random.randrange(1,10)
+            if self.is_valid_position((x,y), num) and self.arr[x][y] == 0:
+                self.arr[x][y] = num
+                pre_solved-=1

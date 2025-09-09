@@ -1,6 +1,7 @@
 import cmd
 from sudoku import *
 from bcolors import *
+import random
 
 class CLI(cmd.Cmd):
     prompt = '>>> '
@@ -13,7 +14,7 @@ class CLI(cmd.Cmd):
         s.solve_backtrack(False)
         print(f"Solved?: {bcolors.OKGREEN}{s.is_solved()}{bcolors.ENDC}")
         print(f"Steps: {bcolors.OKBLUE}{s.get_steps()}{bcolors.ENDC}")
-        s.display()
+        s.display()        
         
     def do_bulksolve(self, path):
         """Solves all sudokus in a text file seperated by new line"""
@@ -36,9 +37,12 @@ class CLI(cmd.Cmd):
         s = Sudoku(sudoku)
         s.display()
         
-    def do_generate(self, sudoku):
+    def do_generate(self, pre_solved):
         """Generates a new sudoku puzzle in a one line format"""
-        pass
+        s = Sudoku("000000000000000000000000000000000000000000000000000000000000000000000000000000000")
+        s.generate(int(pre_solved) if pre_solved else random.randrange(6,30))
+        s.display()
+        print(f"One line format: {bcolors.OKCYAN}{s.get_one_line()}{bcolors.ENDC}")
     
     def do_difficulty(self, sudoku):
         """Estimates the difficulty of a sudoku puzzle"""
