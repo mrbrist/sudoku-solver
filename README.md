@@ -14,5 +14,5 @@ A sudoku solver CLI tool made in python
 ## How to use
 
 1. Clone source files
-2. Ensure that `main.sh` is executable (`sudo chmon +x main.sh`)
+2. Ensure that `main.sh` is executable (`sudo chmod +x main.sh`)
 3. Run `./main.sh` to enter to tool
