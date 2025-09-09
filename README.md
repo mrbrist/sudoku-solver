@@ -1,4 +1,4 @@
-![Header](.github/header.png)
+![SudokuSolver](https://github.com/mrbrist/sudoku-solver/blob/main/.github/header.png?raw=true)
 
 # SudokuSolver
 
