@@ -91,12 +91,8 @@ class Sudoku():
                 row_str += " " + cell
             print(row_str)
         
-    def reset(self):
-        split = [self.data[i:i+9] for i in range(0, len(self.data), 9)]
-        
-        for i in range(len(split)):
-            split2 = [int(ch) for ch in split[i]]
-            self.arr[i].extend(split2)
+    # def reset(self):
+    #     self.arr = self.arr2
             
     def find_next_empty(self):
         for i in range(9):
@@ -117,6 +113,10 @@ class Sudoku():
         return True
     
     def solve_backtrack(self, visual, delay=0.5, steps=0):
+        if self.get_steps() >= 1000000:
+            print(f"{bcolors.FAIL}SOLVE ABORTED: Could not solve within 1 million steps{bcolors.ENDC}")
+            return False
+        
         next_pos = self.find_next_empty()
     
         if not next_pos:
@@ -150,6 +150,26 @@ class Sudoku():
                 self.arr[x][y] = num
                 pre_solved-=1
                 
+    def get_givens(self):
+        givens = 0
+        for i in self.arr:
+            for j in i:
+                if j != 0:
+                    givens += 1
+        
+        return givens
+                
     def estimate_difficulty(self):
-        difficulty = ["Easy", "Medium", "Hard", "Very Hard"]
-        return random.choice(difficulty)
+        givens = self.get_givens()
+        self.solve_backtrack(False)
+        steps = self.get_steps()
+        score = (81 - givens) + steps // 50
+        
+        if score < 30:
+            return "Easy"
+        elif score < 60:
+            return "Medium"
+        elif score < 100:
+            return "Hard"
+        else:
+            return "Evil"
