@@ -17,13 +17,12 @@ class CLI(cmd.Cmd):
         
     def do_bulksolve(self, path):
         """Solves all sudokus in a text file seperated by new line"""
-        # s = Sudoku(sudoku)
-        # print("Solving...")
-        # s.solve_backtrack(False)
-        # print(f"Solved?: {bcolors.OKGREEN}{s.is_solved()}{bcolors.ENDC}")
-        # print(f"Steps: {bcolors.OKBLUE}{s.get_steps()}{bcolors.ENDC}")
-        # s.display()
-        pass
+        f = open(path)
+        split = f.read().split("\n")
+        for i in range(len(split)):
+            s = Sudoku(split[i])
+            s.solve_backtrack(False)
+            print(f"Solved #{i+1} in {bcolors.OKBLUE}{s.get_steps()}{bcolors.ENDC} steps")
     
     def do_visual(self, sudoku):
         """Solves a sudoku in a oneline format with visual"""
