@@ -6,6 +6,10 @@ import random
 MAX_STEPS = 1000000
 class Sudoku():
     def __init__(self, data):
+        if len(data) != 81:
+            print(f"{bcolors.FAIL}Invalid Sudoku Puzzle, using zeroed puzzle instead{bcolors.ENDC}")
+            data = "000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        
         self.data = data
         self.arr = [[],[],[],
                     [],[],[],
