@@ -7,6 +7,7 @@ A sudoku solver CLI tool made in python
 ## Features
 
 - Solve sudoku puzzles in one line format
+- Bulk solve sudoku puzzles from a file
 - Generate sudoku puzzles
 - Display sudoku puzzles in a simple format
 - Estimate the difficulty of a sudoku puzzle
