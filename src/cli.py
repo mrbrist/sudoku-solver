@@ -12,6 +12,7 @@ class CLI(cmd.Cmd):
         s = Sudoku(sudoku)
         print("Solving...")
         s.solve_backtrack(False)
+        
         print(f"Solved?: {bcolors.OKGREEN}{s.is_solved()}{bcolors.ENDC}")
         print(f"Steps: {bcolors.OKBLUE}{s.get_steps()}{bcolors.ENDC}")
         s.display()        

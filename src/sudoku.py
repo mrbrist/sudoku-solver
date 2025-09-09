@@ -4,7 +4,6 @@ import time
 import random
 
 MAX_STEPS = 1000000
-
 class Sudoku():
     def __init__(self, data):
         self.data = data
@@ -12,6 +11,7 @@ class Sudoku():
                     [],[],[],
                     [],[],[]]
         self.steps = 0
+        self.solve_aborted = False
         
         split = [data[i:i+9] for i in range(0, len(data), 9)]
         
@@ -113,8 +113,9 @@ class Sudoku():
     
     def solve_backtrack(self, visual, delay=0.5, steps=0):
         if self.get_steps() >= MAX_STEPS:
-            print(f"{bcolors.FAIL}SOLVE ABORTED: Could not solve within {MAX_STEPS:,} steps{bcolors.ENDC}")
-            return False
+            self.abort_solve()
+            self.solve_aborted = True
+            return True
         
         next_pos = self.find_next_empty()
     
@@ -130,6 +131,7 @@ class Sudoku():
                 
                 # Backtrack
                 self.set_num(next_pos, 0)
+                
         if visual:
             print("\033[H\033[J", end="")
             self.display()
@@ -139,6 +141,12 @@ class Sudoku():
             
         self.steps+=1
         return False
+    
+    def abort_solve(self):
+        if not self.solve_aborted:
+            print(f"{bcolors.FAIL}SOLVE ABORTED: Could not solve within {MAX_STEPS:,} steps{bcolors.ENDC}")
+            return
+        return
     
     def generate(self, pre_solved):
         print(f"Generating sudoku with {pre_solved} pre-solved numbers")
