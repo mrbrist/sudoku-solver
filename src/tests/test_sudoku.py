@@ -38,7 +38,7 @@ class TestSudoku(unittest.TestCase):
         solved = "158723469367954821294816375619238547485697132732145986976381254841572693523469718"
         t = Sudoku(test)
         s = Sudoku(solved)
-        t.solve_backtrack()
+        t.solve_backtrack(False)
         self.assertEqual(t, s)
 
 if __name__ == "__main__":
