@@ -3,6 +3,8 @@ from bcolors import *
 import time
 import random
 
+MAX_STEPS = 1000000
+
 class Sudoku():
     def __init__(self, data):
         self.data = data
@@ -90,9 +92,6 @@ class Sudoku():
                 cell = f"{bcolors.OKCYAN}{str(val)}{bcolors.ENDC}" if val != 0 else "."
                 row_str += " " + cell
             print(row_str)
-        
-    # def reset(self):
-    #     self.arr = self.arr2
             
     def find_next_empty(self):
         for i in range(9):
@@ -113,8 +112,8 @@ class Sudoku():
         return True
     
     def solve_backtrack(self, visual, delay=0.5, steps=0):
-        if self.get_steps() >= 1000000:
-            print(f"{bcolors.FAIL}SOLVE ABORTED: Could not solve within 1 million steps{bcolors.ENDC}")
+        if self.get_steps() >= MAX_STEPS:
+            print(f"{bcolors.FAIL}SOLVE ABORTED: Could not solve within {MAX_STEPS:,} steps{bcolors.ENDC}")
             return False
         
         next_pos = self.find_next_empty()
@@ -165,11 +164,11 @@ class Sudoku():
         steps = self.get_steps()
         score = (81 - givens) + steps // 50
         
-        if score < 30:
-            return "Easy"
-        elif score < 60:
-            return "Medium"
-        elif score < 100:
-            return "Hard"
+        if score < 100:
+            return f"{bcolors.OKGREEN}Easy{bcolors.ENDC}"
+        elif score < 250:
+            return f"{bcolors.OKCYAN}Medium{bcolors.ENDC}"
+        elif score < 500:
+            return f"{bcolors.WARNING}Hard{bcolors.ENDC}"
         else:
-            return "Evil"
+            return f"{bcolors.FAIL}Evil{bcolors.ENDC}"
