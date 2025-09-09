@@ -40,6 +40,22 @@ class TestSudoku(unittest.TestCase):
         s = Sudoku(solved)
         t.solve_backtrack(False)
         self.assertEqual(t, s)
+        
+    def test_generate(self):
+        test =   "000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        t = Sudoku(test)
+        t.generate(5)
+        self.assertIsNotNone(t.get_one_line())
+        
+    def test_is_solved(self):
+        test =   "158723469367954821294816375619238547485697132732145986976381254841572693523469718"
+        t = Sudoku(test)
+        self.assertTrue(t.is_solved())
+        
+    def test_difficulty(self):
+        test =   "050703060007000800000816000000030000005000100730040086906000204840572093000409000"
+        t = Sudoku(test)
+        self.assertIsNotNone(t.estimate_difficulty())
 
 if __name__ == "__main__":
     unittest.main()
