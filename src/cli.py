@@ -51,6 +51,15 @@ class CLI(cmd.Cmd):
         print("Estimating...")
         s = Sudoku(sudoku)
         print(f"Estimated difficulty is: {s.estimate_difficulty()}")
+        
+    def do_validpos(self, sudoku):
+        """Shows all of the valid positions for a number"""
+        sudoku, num = sudoku.split(" ")
+        s = Sudoku(sudoku)
+        print(f"Showing all valid positions for: {num}")
+        s.show_all_valid_pos_for_number(num)
+        
+        # validpos 302401809001000300000000000040708010780502036000090000200609003900000008800070005 6
 
     def do_exit(self, line):
         """Exit the CLI."""

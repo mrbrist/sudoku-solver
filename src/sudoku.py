@@ -180,3 +180,24 @@ class Sudoku():
             return f"{bcolors.WARNING}Hard{bcolors.ENDC}"
         else:
             return f"{bcolors.FAIL}Evil{bcolors.ENDC}"
+        
+    def show_all_valid_pos_for_number(self, num):
+        num = int(num)
+        for i in range(len(self.arr)):
+            for j in range(len(self.arr[i])):
+                if self.arr[i][j] == 0:
+                    pos = i, j
+                    if self.is_valid_position(pos, num):
+                        self.arr[i][j] = "#"
+                        
+        for i, row in enumerate(self.arr):
+            if i % 3 == 0 and i != 0:
+                print("-" * 22)
+
+            row_str = ""
+            for j, val in enumerate(row):
+                if j % 3 == 0 and j != 0:
+                    row_str += " |"
+                cell = f"{bcolors.OKCYAN}{str(val)}{bcolors.ENDC}" if val != 0 and val != "#" else f"{bcolors.FAIL}{num}{bcolors.ENDC}" if val == "#" else "."
+                row_str += " " + cell
+            print(row_str)
