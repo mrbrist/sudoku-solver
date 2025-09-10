@@ -17,3 +17,7 @@ A sudoku solver CLI tool made in python
 1. Clone source files
 2. Ensure that `main.sh` is executable (`sudo chmod +x main.sh`)
 3. Run `./main.sh` to enter to tool
+
+## How to convert a puzzle into one-line
+- This can be done easily by reading the puzzle from **left to right, line by line**
+- Any empty cells should be replaced with a **0**
